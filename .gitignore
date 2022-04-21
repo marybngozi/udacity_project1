@@ -1,0 +1,6 @@
+.venv
+node_modules
+package-lock.json
+__pychache__/
+*.pyc
+*.toml
