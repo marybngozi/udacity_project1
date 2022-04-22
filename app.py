@@ -295,8 +295,6 @@ def show_artist(artist_id):
       "start_time": str(show.start_time)
     })
 
-  print(artist.albums_songs)
-
   data = {
     "id": artist.id,
     "name": artist.name,
