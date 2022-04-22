@@ -2,7 +2,7 @@ from datetime import datetime
 from email.policy import default
 from flask_wtf import Form
 from wtforms import StringField, SelectField, SelectMultipleField, DateTimeField, BooleanField
-from wtforms.validators import DataRequired, AnyOf, URL
+from wtforms.validators import DataRequired, AnyOf, URL, Regexp
 
 genre_choices = [
     ('Alternative', 'Alternative'),
@@ -118,7 +118,7 @@ class VenueForm(Form):
         'address', validators=[DataRequired()]
     )
     phone = StringField(
-        'phone'
+        'phone', validators = [DataRequired(), Regexp('^\d{3}-\d{3}-\d{4}$', message='Phone format is wrong: ' + 'xxx-xxx-xxxx')]
     )
     image_link = StringField(
         'image_link'

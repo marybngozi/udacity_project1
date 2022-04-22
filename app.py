@@ -44,11 +44,11 @@ app.jinja_env.filters['datetime'] = format_datetime
 #----------------------------------------------------------------------------#
 @app.route('/')
 def index():
-  # TODO: get the recent 10 artists
+  # get the recent 10 artists
   artists = Artist.query.with_entities(Artist.id, Artist.name).order_by(Artist.created_on).limit(10).all()
   artists = [dict(zip(d.keys(), d)) for d in artists]
 
-  # TODO:get the recent 10 venues
+  # get the recent 10 venues
   venues = Venue.query.with_entities(Venue.id, Venue.name).order_by(Venue.created_on).limit(10).all()
   venues = [dict(zip(d.keys(), d)) for d in venues]
 
@@ -269,7 +269,6 @@ def search_artists():
 def show_artist(artist_id):
   # shows the artist page with the given artist_id
   # replace with real artist data from the artist table, using artist_id
-
   artist = Artist.query.get(artist_id)
 
   if not artist:
@@ -296,6 +295,8 @@ def show_artist(artist_id):
       "start_time": str(show.start_time)
     })
 
+  print(artist.albums_songs)
+
   data = {
     "id": artist.id,
     "name": artist.name,
@@ -312,6 +313,7 @@ def show_artist(artist_id):
     "upcoming_shows_count": artist.num_upcoming_shows,
     "past_shows": past_shows,
     "upcoming_shows": upcoming_shows,
+    "albums": artist.albums_songs
   }
 
   return render_template('pages/show_artist.html', artist=data)
